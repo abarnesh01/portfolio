@@ -1,26 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect } from 'react';
 
 const CustomCursor = () => {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [isHovering, setIsHovering] = useState(false);
-    const [isClicked, setIsClicked] = useState(false);
-
     useEffect(() => {
+        // Prevent duplicate cursors
+        if (document.querySelector(".cursor-glow")) return;
+
+        const cursor = document.createElement("div");
+        cursor.className = "cursor-glow";
+        document.body.appendChild(cursor);
+
+        const cursorInner = document.createElement("div");
+        cursorInner.className = "cursor-inner";
+        cursor.appendChild(cursorInner);
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
         const handleMouseMove = (e) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         };
 
-        const handleMouseDown = () => setIsClicked(true);
-        const handleMouseUp = () => setIsClicked(false);
+        const handleMouseDown = () => cursor.classList.add("clicked");
+        const handleMouseUp = () => cursor.classList.remove("clicked");
 
         const handleMouseOver = (e) => {
             const target = e.target;
-            if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('.hover-trigger')) {
-                setIsHovering(true);
+            const isClickable = target.tagName === 'A' ||
+                target.tagName === 'BUTTON' ||
+                target.closest('a') ||
+                target.closest('button') ||
+                target.closest('.hover-trigger');
+
+            if (isClickable) {
+                cursor.classList.add("hovering");
             } else {
-                setIsHovering(false);
+                cursor.classList.remove("hovering");
             }
+        };
+
+        const animate = () => {
+            // Smooth trailing effect using lerp
+            const lerpFactor = 0.15;
+            cursorX += (mouseX - cursorX) * lerpFactor;
+            cursorY += (mouseY - cursorY) * lerpFactor;
+
+            cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
+
+            requestAnimationFrame(animate);
         };
 
         window.addEventListener('mousemove', handleMouseMove);
@@ -28,51 +57,21 @@ const CustomCursor = () => {
         window.addEventListener('mouseup', handleMouseUp);
         window.addEventListener('mouseover', handleMouseOver);
 
+        const animationId = requestAnimationFrame(animate);
+
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('mousedown', handleMouseDown);
             window.removeEventListener('mouseup', handleMouseUp);
             window.removeEventListener('mouseover', handleMouseOver);
+            cancelAnimationFrame(animationId);
+            if (cursor && cursor.parentNode) {
+                cursor.parentNode.removeChild(cursor);
+            }
         };
     }, []);
 
-    return (
-        <>
-            {/* Outer Ring */}
-            <motion.div
-                className="fixed top-0 left-0 w-8 h-8 rounded-full border border-[#00f5ff]/50 pointer-events-none z-[10000] hidden md:block"
-                animate={{
-                    x: mousePosition.x - 16,
-                    y: mousePosition.y - 16,
-                    scale: isHovering ? 2 : 1,
-                    borderColor: isHovering ? '#8a2be2' : '#00f5ff',
-                    opacity: isClicked ? 0.5 : 1
-                }}
-                transition={{ type: 'spring', damping: 20, stiffness: 250, mass: 0.5 }}
-            />
-
-            {/* Inner Dot */}
-            <motion.div
-                className="fixed top-0 left-0 w-2 h-2 rounded-full bg-[#00f5ff] pointer-events-none z-[10000] shadow-[0_0_10px_#00f5ff] hidden md:block"
-                animate={{
-                    x: mousePosition.x - 4,
-                    y: mousePosition.y - 4,
-                    scale: isHovering ? 1.5 : 1
-                }}
-                transition={{ type: 'spring', damping: 30, stiffness: 500, mass: 0.1 }}
-            />
-
-            {/* Click Pulse Effect */}
-            {isClicked && (
-                <motion.div
-                    initial={{ opacity: 0.5, scale: 0 }}
-                    animate={{ opacity: 0, scale: 4 }}
-                    className="fixed top-0 left-0 w-10 h-10 rounded-full border-2 border-[#00f5ff] pointer-events-none z-[10000] hidden md:block"
-                    style={{ x: mousePosition.x - 20, y: mousePosition.y - 20 }}
-                />
-            )}
-        </>
-    );
+    return null; // This component handles its own DOM insertion
 };
 
 export default CustomCursor;

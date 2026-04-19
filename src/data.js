@@ -20,7 +20,7 @@ export const listProyek = [
     subtitle: 'OCR-based PII masking system',
     description: 'A high-accuracy tool to auto-detect and mask PII in identity documents using OCR and OpenCV. Features real-time processing and secure data handling.',
     tags: ['Python', 'EasyOCR', 'OpenCV', 'FastAPI'],
-    image: '/portofolio/assets/proyek/proyek1.webp',
+    image: '/assets/proyek/proyek1.webp',
     github: 'https://github.com/abarnesh',
     demo: '#',
     color: '#00f5ff'
@@ -31,7 +31,7 @@ export const listProyek = [
     subtitle: 'AI-powered CCTV monitoring',
     description: 'Real-time AI application for surveillance threat detection. Uses advanced deep learning models to identify anomalies and automated public safety alerts.',
     tags: ['AI', 'PyTorch', 'React', 'Socket.io'],
-    image: '/portofolio/assets/proyek/proyek2.webp',
+    image: '/assets/proyek/proyek2.webp',
     github: 'https://github.com/abarnesh',
     demo: '#',
     color: '#ff0040'
@@ -42,7 +42,7 @@ export const listProyek = [
     subtitle: 'ML anomaly detection system',
     description: 'A comprehensive SOC simulation tool that monitors live network traffic. Utilizes Scikit-Learn to detect potential security threats in real-time.',
     tags: ['Express.js', 'React', 'Scikit-Learn', 'D3.js'],
-    image: '/portofolio/assets/proyek/proyek3.webp',
+    image: '/assets/proyek/proyek3.webp',
     github: 'https://github.com/abarnesh',
     demo: '#',
     color: '#8a2be2'

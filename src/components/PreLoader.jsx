@@ -9,6 +9,9 @@ const PreLoader = () => {
   const [fadeScreen, setFadeScreen] = useState(false)
 
   useEffect(() => {
+    // Safety timeout: always unmount after 10s max
+    const safetyTimer = setTimeout(() => setLoading(false), 10000);
+
     if (countDone) {
       // Fade teks
       const fadeTextTimer = setTimeout(() => setFadeText(true), 3000)
@@ -20,19 +23,21 @@ const PreLoader = () => {
       const hideTimer = setTimeout(() => setLoading(false), 3000)
 
       return () => {
+        clearTimeout(safetyTimer)
         clearTimeout(fadeTextTimer)
         clearTimeout(fadeScreenTimer)
         clearTimeout(hideTimer)
       }
     }
+
+    return () => clearTimeout(safetyTimer);
   }, [countDone])
 
   return (
     loading && (
       <div
-        className={`w-screen h-screen fixed flex items-center justify-center bg-black z-[10000] overflow-hidden transition-opacity duration-1000 ${
-          fadeScreen ? "opacity-0" : "opacity-100"
-        }`}
+        className={`w-screen h-screen fixed flex items-center justify-center bg-black z-[10000] overflow-hidden transition-opacity duration-1000 ${fadeScreen ? "opacity-0" : "opacity-100"
+          }`}
       >
         <Aurora
           colorStops={["#577870", "#1F97A6", "#127B99"]}
@@ -41,9 +46,8 @@ const PreLoader = () => {
           speed={0.5}
         />
         <div
-          className={`absolute text-white text-6xl font-bold transition-all duration-1000 ${
-            fadeText ? "opacity-0 -translate-y-10" : "opacity-100 translate-y-0"
-          }`}
+          className={`absolute text-white text-6xl font-bold transition-all duration-1000 ${fadeText ? "opacity-0 -translate-y-10" : "opacity-100 translate-y-0"
+            }`}
         >
           <CountUp
             from={0}

@@ -23,9 +23,9 @@ const SkillCard = ({ tool }) => {
     return (
         <div
             ref={cardRef}
-            className={`relative group p-6 rounded-2xl transition-all duration-500 ease-out cursor-pointer overflow-hidden
-        bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20
-        ${isHovered ? 'shadow-[0_0_30px_rgba(0,245,255,0.2)] -translate-y-2' : ''}`}
+            className={`relative group p-6 rounded-2xl transition-all duration-300 ease-out cursor-pointer overflow-hidden
+        bg-white/5 backdrop-blur-md border border-white/10 hover:border-cyan-400/40
+        ${isHovered ? 'shadow-[0_0_20px_rgba(0,245,255,0.4)] -translate-y-3 scale-[1.02]' : ''}`}
             style={{
                 transform: `perspective(1000px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg) scale(${isHovered ? 1.05 : 1})`,
                 transformStyle: 'preserve-3d',

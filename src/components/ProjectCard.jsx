@@ -21,10 +21,10 @@ const ProjectCard = ({ project, isFeatured = false }) => {
     return (
         <div
             ref={cardRef}
-            className={`relative group rounded-3xl transition-all duration-500 ease-out cursor-pointer overflow-hidden
-        bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20
+            className={`relative group rounded-3xl transition-all duration-300 ease-out cursor-pointer overflow-hidden
+        bg-white/5 backdrop-blur-md border border-white/10 hover:border-cyan-400/40
         ${isFeatured ? 'md:col-span-2 md:row-span-1' : ''}
-        ${isHovered ? 'shadow-[0_20px_50px_rgba(0,0,0,0.5)] -translate-y-3' : ''}`}
+        ${isHovered ? 'shadow-[0_20px_50px_rgba(0,0,0,0.5)] -translate-y-3 scale-[1.02]' : ''}`}
             style={{
                 transform: `perspective(2000px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg) scale(${isHovered ? 1.02 : 1})`,
                 transformStyle: 'preserve-3d',
@@ -54,7 +54,7 @@ const ProjectCard = ({ project, isFeatured = false }) => {
 
                 {/* Tech Stack Tags */}
                 <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                    {project.tags.map((tag, i) => (
+                    {project.tags?.map((tag, i) => (
                         <span
                             key={i}
                             className="px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white flex items-center gap-1.5"

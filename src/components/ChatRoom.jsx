@@ -17,12 +17,14 @@ export default function ChatRoom() {
 
   // Cek login
   useEffect(() => {
+    if (!auth) return;
     const unsub = onAuthStateChanged(auth, (u) => setUser(u));
     return () => unsub();
   }, []);
 
   // Ambil pesan real-time
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, "messages"), orderBy("createdAt"));
     const unsub = onSnapshot(q, (snapshot) => {
       setMessages(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
@@ -33,7 +35,7 @@ export default function ChatRoom() {
   // Kirim pesan
   const sendMessage = async (e) => {
     e.preventDefault();
-    if (!message.trim()) return;
+    if (!message.trim() || !db || !user) return;
 
     await addDoc(collection(db, "messages"), {
       text: message,
@@ -80,11 +82,10 @@ export default function ChatRoom() {
               />
             )}
             <div
-              className={`p-3 rounded-lg max-w-[75%] ${
-                msg.uid === user?.uid
+              className={`p-3 rounded-lg max-w-[75%] ${msg.uid === user?.uid
                   ? "bg-blue-500 text-white"
                   : "bg-gray-700 text-white"
-              }`}
+                }`}
             >
               <div className="text-xs opacity-70 mb-1">{msg.displayName}</div>
               <div>{msg.text}</div>

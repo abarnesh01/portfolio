@@ -6,20 +6,37 @@ import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "",
   authDomain: "",
-  projectId: ",
+  projectId: "",
   storageBucket: "",
   messagingSenderId: "",
   appId: ""
 };
 
-// Init Firebase
-const app = initializeApp(firebaseConfig);
-
-// Auth
-export const auth = getAuth(app);
+// Only initialize if API Key is provided
+let app, auth, db;
 const provider = new GoogleAuthProvider();
-export const loginWithGoogle = () => signInWithPopup(auth, provider);
-export const logout = () => signOut(auth);
 
-// Firestore
-export const db = getFirestore(app);
+if (firebaseConfig.apiKey) {
+  try {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+  } catch (error) {
+    console.error("Firebase initialization failed:", error);
+  }
+} else {
+  console.warn("Firebase API Key is missing. Some features like Chat Room will not work.");
+}
+
+export { auth, db };
+export const loginWithGoogle = () => {
+  if (!auth) {
+    alert("Firebase is not configured.");
+    return Promise.reject("Firebase not configured");
+  }
+  return signInWithPopup(auth, provider);
+};
+export const logout = () => {
+  if (!auth) return Promise.resolve();
+  return signOut(auth);
+};

@@ -5,3 +5,87 @@
     font-family: "Poppins", sans-serif;
   }
 }
+
+/* Scroll Animation Classes */
+.hidden {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section {
+  position: relative;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Tesla Scroll Animation */
+.hide-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.show-section {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Updated Contact Section Styles */
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.contact-btn:hover {
+  background: rgba(0, 245, 255, 0.05);
+  border-color: #00f5ff;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.2), inset 0 0 10px rgba(0, 245, 255, 0.1);
+  color: #00f5ff;
+}
+
+.contact-btn svg {
+  transition: transform 0.4s ease;
+}
+
+.contact-btn:hover svg {
+  transform: scale(1.1);
+}
+
+@media (max-width: 640px) {
+  .contact-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

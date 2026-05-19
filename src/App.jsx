@@ -23,6 +23,7 @@ import AchievementsGrid from "./components/AchievementsGrid";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PreLoader from "./components/PreLoader";
+import ChatRoom from "./components/ChatRoom";
 import { playHoverSound, playClickSound } from "./utils/sounds";
 import 'aos/dist/aos.css';
 
@@ -350,6 +351,19 @@ function App() {
                 </div>
               ))}
             </div>
+          </section>
+
+          {/* Interactive AI Sandbox Section */}
+          <section id="sandbox" className="mt-32 relative py-20 px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-black mb-4 text-white">
+                Interactive <span className="text-[#00f5ff] drop-shadow-[0_0_15px_rgba(0,245,255,0.3)]">Security Sandbox</span>
+              </h2>
+              <p className="max-w-xl mx-auto text-gray-400 font-mono text-sm">
+                Explore the terminal interface. Run scans, bypass mock firewalls, or prompt the A.E.G.I.S. security agent.
+              </p>
+            </div>
+            <ChatRoom />
           </section>
 
           {/* Contact Section */}

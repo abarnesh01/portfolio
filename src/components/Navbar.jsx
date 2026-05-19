@@ -32,9 +32,10 @@ const Navbar = ({ hidden = false }) => {
           transition-all duration-500
           ${active ? "top-0 bg-white/10 backdrop-blur-md opacity-100" : "top-0 md:bg-transparent md:backdrop-blur-none opacity-100"}`}
       >
-        <li><a href="#home" className="sm:text-lg text-base font-medium relative transition-all duration-300 hover:text-cyan-400 after:absolute after:w-0 after:h-[2px] after:bg-cyan-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Home</a></li>
+        <li><a href="#hero" className="sm:text-lg text-base font-medium relative transition-all duration-300 hover:text-cyan-400 after:absolute after:w-0 after:h-[2px] after:bg-cyan-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Home</a></li>
         <li><a href="#about" className="sm:text-lg text-base font-medium relative transition-all duration-300 hover:text-cyan-400 after:absolute after:w-0 after:h-[2px] after:bg-cyan-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">About</a></li>
         <li><a href="#project" className="sm:text-lg text-base font-medium relative transition-all duration-300 hover:text-cyan-400 after:absolute after:w-0 after:h-[2px] after:bg-cyan-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Project</a></li>
+        <li><a href="#sandbox" className="sm:text-lg text-base font-medium relative transition-all duration-300 hover:text-cyan-400 after:absolute after:w-0 after:h-[2px] after:bg-cyan-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Sandbox</a></li>
         <li><a href="#contact" className="sm:text-lg text-base font-medium relative transition-all duration-300 hover:text-cyan-400 after:absolute after:w-0 after:h-[2px] after:bg-cyan-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Contact</a></li>
       </ul>
     </nav>

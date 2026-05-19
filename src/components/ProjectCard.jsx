@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 
-const ProjectCard = ({ project, isFeatured = false }) => {
+const ProjectCard = ({ project, isFeatured = false, onClick }) => {
     const [tilt, setTilt] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
     const cardRef = useRef(null);
@@ -21,6 +21,7 @@ const ProjectCard = ({ project, isFeatured = false }) => {
     return (
         <div
             ref={cardRef}
+            onClick={onClick}
             className={`relative group rounded-3xl transition-all duration-300 ease-out cursor-pointer overflow-hidden
         bg-white/5 backdrop-blur-md border border-white/10 hover:border-cyan-400/40
         ${isFeatured ? 'md:col-span-2 md:row-span-1' : ''}
@@ -86,12 +87,14 @@ const ProjectCard = ({ project, isFeatured = false }) => {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="flex-1 py-3 text-center text-sm font-bold rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all active:scale-95"
                     >
                         GitHub
                     </a>
                     <a
                         href={project.demo}
+                        onClick={(e) => e.stopPropagation()}
                         className="flex-1 py-3 text-center text-sm font-bold rounded-xl bg-white text-black hover:opacity-90 transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
                         style={{
                             backgroundColor: project.color,

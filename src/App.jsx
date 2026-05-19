@@ -30,7 +30,12 @@ import 'aos/dist/aos.css';
 function App() {
   const aboutRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [isBooting, setIsBooting] = useState(true);
+  const [isBooting, setIsBooting] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !sessionStorage.getItem("has_booted");
+    }
+    return true;
+  });
 
   const [selectedProject, setSelectedProject] = useState(null); // null = modal tertutup
 
@@ -143,7 +148,16 @@ function App() {
       {/* <PreLoader /> */}
       <CustomCursor />
       <AnimatePresence>
-        {/* {isBooting && <BootScreen onComplete={() => setIsBooting(false)} />} */}
+        {isBooting && (
+          <BootScreen
+            onComplete={() => {
+              setIsBooting(false);
+              if (typeof window !== "undefined") {
+                sessionStorage.setItem("has_booted", "true");
+              }
+            }}
+          />
+        )}
       </AnimatePresence>
 
 

@@ -346,7 +346,7 @@ function App() {
                   data-aos-delay={index * 150}
                   className={index === 0 ? 'md:col-span-2' : ''}
                 >
-                  <ProjectCard project={project} isFeatured={index === 0} />
+                  <ProjectCard project={project} isFeatured={index === 0} onClick={() => handleProjectClick(project)} />
                 </div>
               ))}
             </div>
